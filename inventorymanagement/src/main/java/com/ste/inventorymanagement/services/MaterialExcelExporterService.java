@@ -28,7 +28,7 @@ public class MaterialExcelExporterService {
 	public MaterialExcelExporterService(List<Material> materials) {
 		this.materials = materials;
 		workbook = new XSSFWorkbook();
-		sheet = workbook.createSheet("Materialss");
+		sheet = workbook.createSheet("Materials");
 	}
 
 
