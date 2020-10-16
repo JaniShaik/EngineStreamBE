@@ -23,6 +23,7 @@ public class MaterialExcelExporterService {
 	private List<Material> materials;
 	int rowCount = 1;
 	int headerRow = 0;
+	int materialSno = 1;
 
 	public MaterialExcelExporterService(List<Material> materials) {
 		this.materials = materials;
@@ -42,14 +43,14 @@ public class MaterialExcelExporterService {
 		font.setFontHeight(14);
 		style.setFont(font);
 
-		createCell(row, column++, "id", style);
-		createCell(row, column++, "materialNumber", style);
-		createCell(row, column++, "materialDescription", style);
-		createCell(row, column++, "lastPOUnitPrice", style);
-		createCell(row, column++, "last1stYearIssueQuantity", style);
+		createCell(row, column++, "S.No", style);
+		createCell(row, column++, "Material Number", style);
+		createCell(row, column++, "Material Description", style);
+		createCell(row, column++, "Last PO Unit Price", style);
+		createCell(row, column++, "Last 1st Year Issue Quantity", style);
 		
-		createCell(row, column++, "last2ndYearIssueQuantity", style);
-		createCell(row, column++, "last3rdYearIssueQuantity", style);
+		createCell(row, column++, "Last 2nd Year Issue Quantity", style);
+		createCell(row, column++, "Last 3rd Year Issue Quantity", style);
 
 	}
 	
@@ -82,7 +83,7 @@ public class MaterialExcelExporterService {
 		Row row = sheet.createRow(rowCount);
 		int columnCount = 0;
 
-		createCell(row, columnCount++, material.getId(), style);
+		createCell(row, columnCount++, materialSno++, style);
 		createCell(row, columnCount++, material.getMaterialNumber(), style);
 		createCell(row, columnCount++, material.getMaterialDescription(), style);
 		createCell(row, columnCount++, material.getLastPOUnitPrice(), style);
@@ -106,29 +107,29 @@ public class MaterialExcelExporterService {
 		font.setFontHeight(14);
 		style.setFont(font);
 
-		createCell(row, column++, "Serial No", style);
-		createCell(row, column++, "bizUnit", style);
+		createCell(row, column++, "S.No", style);
+		createCell(row, column++, "Biz Unit", style);
 		
-		createCell(row, column++, "bizUnitDescription", style);
-		createCell(row, column++, "batchNo", style);
-		createCell(row, column++, "qiBatchNo", style);
-		createCell(row, column++, "storageLocation", style);
-		createCell(row, column++, "storageBin", style);
-		createCell(row, column++, "lastReceiptDate", style);
-		createCell(row, column++, "ageByDay", style);
-		createCell(row, column++, "ageByMonth", style);
-		createCell(row, column++, "quantity", style);
-		createCell(row, column++, "uom", style);
-		createCell(row, column++, "vendorName", style);
-		createCell(row, column++, "reasonPurchaseDescription", style);
-		createCell(row, column++, "valueInUSD", style);
-		createCell(row, column++, "nbvInUSD", style);
-		createCell(row, column++, "totalNBVUSD", style);
-		createCell(row, column++, "tsn", style);
-		createCell(row, column++, "csn", style);
-		createCell(row, column++, "condition", style);
-		createCell(row, column++, "materialSerialNumber", style);
-		createCell(row, column++, "materialCharacteristic", style);
+		createCell(row, column++, "Biz Unit Description", style);
+		createCell(row, column++, "Batch No", style);
+		createCell(row, column++, "Qi Batch No", style);
+		createCell(row, column++, "Storage Location", style);
+		createCell(row, column++, "Storage Bin", style);
+		createCell(row, column++, "Last Receipt Date", style);
+		createCell(row, column++, "Age By Day", style);
+		createCell(row, column++, "Age By Month", style);
+		createCell(row, column++, "Quantity", style);
+		createCell(row, column++, "Uom", style);
+		createCell(row, column++, "Vendor Name", style);
+		createCell(row, column++, "Reason Purchase Description", style);
+		createCell(row, column++, "Value In USD", style);
+		createCell(row, column++, "Nbv In USD", style);
+		createCell(row, column++, "Total Nbv USD", style);
+		createCell(row, column++, "Tsn", style);
+		createCell(row, column++, "Csn", style);
+		createCell(row, column++, "Condition", style);
+		createCell(row, column++, "Material Serial Number", style);
+		createCell(row, column++, "Material Characteristic", style);
 		
 
 	}
@@ -182,7 +183,6 @@ public class MaterialExcelExporterService {
 			writeMaterialDataLines(material);
 			writeBatchHeaderLine();
 			writeBatchDataLines(material.getBatches());
-			
 		}
 		
 
