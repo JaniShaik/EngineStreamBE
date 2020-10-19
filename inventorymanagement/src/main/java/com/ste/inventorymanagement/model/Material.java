@@ -1,6 +1,7 @@
 package com.ste.inventorymanagement.model;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +10,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 
 @Entity
 @Table(name = "Material")
@@ -46,6 +54,9 @@ public class Material {
 	@JoinColumn(name = "Plant", referencedColumnName="id")
 	private Plant plant;
 
+	@OneToMany(mappedBy = "material")
+	private List<Batch> batches;
+	
 	public Long getId() {
 		return id;
 	}
@@ -116,5 +127,13 @@ public class Material {
 
 	public void setPlant(Plant plant) {
 		this.plant = plant;
+	}
+
+	public List<Batch> getBatches() {
+		return batches;
+	}
+
+	public void setBatches(List<Batch> batches) {
+		this.batches = batches;
 	}
 }
