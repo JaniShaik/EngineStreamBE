@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ste.inventorymanagement.model.Batch;
 import com.ste.inventorymanagement.repository.BatchRepository;
 
-//123
-
 @RestController
 @ResponseBody
 @RequestMapping("/Batch")
