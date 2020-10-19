@@ -32,10 +32,6 @@ import com.ste.inventorymanagement.model.SmtpMail;
 public class MailService {
 	
 	
-	  @Autowired
-	  public JavaMailSender javaMailSender;
-	 
-
 	  public void sendmail(Material material) throws Exception {
 
 		  String contant = this.setMailcontent(material);
@@ -48,7 +44,7 @@ public class MailService {
 
 		  Session session = Session.getInstance(props, new javax.mail.Authenticator() {
 			  protected PasswordAuthentication getPasswordAuthentication() {
-				  return new PasswordAuthentication("***********", "**********");
+				  return new PasswordAuthentication("leekendrav@gmail.com", "*****");
 			  }
 		  });
 		  Message msg = new MimeMessage(session);
@@ -89,23 +85,5 @@ public class MailService {
 		  return contant.toString();
 	  }
 
-	//divyas method
-	
-	  public void sendBatchEmail(SmtpMail smtpEmail) throws Exception{
-	  MimeMessage message = javaMailSender.createMimeMessage();
-	  MimeMessageHelper helper = new MimeMessageHelper(message, true);
-	  helper.setTo(smtpEmail.getTo());
-	  helper.setSubject(smtpEmail.getMessageSubject());
-	  //helper.setText(email.getMessageBody());
-	  helper.setText(smtpEmail.getMessageBody(), true);//This makes body in html
-	  ClassPathResource path = new ClassPathResource("galaxy schema.jpg");
-	  ClassPathResource path1 = new ClassPathResource("A Sample PDF.pdf");
-		/*
-		 * helper.addAttachment("galaxy schema.jpg", path);
-		 * helper.addAttachment("A Sample PDF.pd", path1);
-		 */
-	  javaMailSender.send(message);
-	  }
-	 
 	
 }

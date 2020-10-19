@@ -7,6 +7,9 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +33,7 @@ import com.ste.inventorymanagement.services.MaterialService;
 @RequestMapping("/Material")
 public class MaterialController {
 	@Autowired
-	MaterialRepository materialRepository;
+	MaterialRepository materialRepo;
 
 	@Autowired
 	BatchRepository batchRepository;
@@ -47,19 +50,31 @@ public class MaterialController {
 	@GetMapping("/")
 	public List<Material> getAllMaterials() {
 		List<Material> materials = null;
-		materials = materialRepository.findAll();
+		materials = materialRepo.findAll();
 		return materials;
 	}
+	
+	/*
+	 * @GetMapping("/getAllMaterials")
+	 * public List<Material> getAllMaterials2() {
+	 * List<Material> materials = null;
+	 * materials = materialService.getMaterials();
+	 * System.out.println(materials.get(0).getBatches());
+	 * return materials;
+	 * }
+	 */
 
+	/*
+	 * @GetMapping(path = "/getMaterialsUsingQuery")
+	 * public List<Material> getMaterialsUsingQuery() {
+	 * return materialRepo.getMaterialDataUsingQyery();
+	 * }
+	 */
 	@GetMapping(path = "/convertMaterialToExcel")
 	public void convertMaterialToExcel(HttpServletResponse response) throws IOException {
 		materialService.convertMaterialToExcel(response);    
 	}
-	@GetMapping(path = "/getMaterialsUsingQuery")
-	public List<Material> getMaterialsUsingQuery() {
-		return materialRepository.getMaterialDataUsingQyery();
-	}
-
+	
 	@RequestMapping(value = "/sendemail/{id}")
 	public String sendEmail(@PathVariable Long id) throws Exception {
 		Material material = this.getMaterialByBatchId(id);
@@ -69,24 +84,24 @@ public class MaterialController {
 		mailService.sendmail(material);
 		return "Email sent successfully";
 	}
-	/*
-	 * @GetMapping("/getMaterialByBatchId/{id}")
-	 * public Optional<Material> getMaterialByBatchId(@PathVariable int id) {
-	 * return materialService.getMaterialByBatchId(id);
-	 * }
-	 */
 
 	@GetMapping("/getMaterialByBatchId/{batchId}")
 	public Material getMaterialByBatchId(@PathVariable Long batchId) {
 		return batchService.getMaterialByBatchIdUsingQuery(batchId);
 	}
-
-
-
-	@PostMapping(value="/sendEmailAttachement")
-	public String sendEmailAttachement(@RequestBody SmtpMail smtpEmail) throws Exception {
-		mailService.sendBatchEmail(smtpEmail);
-		return "mail sent successfully";
+	
+	@GetMapping("/getMaterialsByPagingId/{pageId}")
+	public Page<Material> getMaterialsByPagingId(@PathVariable int pageId) {
+		Pageable page = PageRequest.of(pageId, materialRepo.PAGE_SIZE);
+		Page<Material> material =  materialRepo.findAll(page);
+		return material;
+		
 	}
-
+	
+	@GetMapping("/searchMaterial/{data}")
+	public List<Material> searchMaterial(@PathVariable String data) {
+		String pattern = "%"+data+"%";
+		List<Material> materials = materialService.searchMaterial(pattern);
+		return materials;
+	}
 }

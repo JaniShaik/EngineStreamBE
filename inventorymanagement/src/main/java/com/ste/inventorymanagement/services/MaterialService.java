@@ -16,10 +16,10 @@ import com.ste.inventorymanagement.repository.MaterialRepository;
 public class MaterialService {
 	
 	@Autowired
-	MaterialRepository materialRepository;
+	MaterialRepository materialRepo;
 
-	private List<Material> getMaterials() {
-		return materialRepository.findAll();
+	public List<Material> getMaterials() {
+		return materialRepo.findAll();
 	}
 	
 	public void convertMaterialToExcel(HttpServletResponse response) throws IOException {
@@ -37,12 +37,18 @@ public class MaterialService {
 	}
 
 	public List<Material> getMaterialDataUsingQyery() {
-		return materialRepository.getMaterialDataUsingQyery();
+		return materialRepo.getMaterialDataUsingQyery();
 	}
 
 	public Optional<Material> getMaterialByBatchId(int id) {
-		Optional<Material> material = materialRepository.findById((long) id);
+		Optional<Material> material = materialRepo.findById((long) id);
 		return material;
+	}
+
+
+	public List<Material> searchMaterial(String data) {
+		List<Material> materials = materialRepo.searchMaterial(data);
+		return materials;
 	}
 	
 }
