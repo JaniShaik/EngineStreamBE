@@ -3,6 +3,8 @@ package com.ste.inventorymanagement;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
+//checking....
 @SpringBootApplication
 public class InventorymanagementApplication {
 
