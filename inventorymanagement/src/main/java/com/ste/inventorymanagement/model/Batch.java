@@ -12,8 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 @Entity
 @Table(name = "Batch")
 public class Batch {
@@ -87,7 +85,6 @@ public class Batch {
 	private String materialCharacteristic;
 
 	@ManyToOne
-	@JsonBackReference
 	@JoinColumn(name = "Material", referencedColumnName = "id")
 	private Material material;
 
