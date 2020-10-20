@@ -2,13 +2,26 @@ package com.ste.inventorymanagement.services;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -52,7 +65,7 @@ public class MaterialService {
 	}
 
 
-	public List<Material> searchMaterial(String pattern) {
+	public List<Material> searchMaterial1(String pattern) {
 		/*
 		 * String query = "select m "
 		 * + "from Material m ";
@@ -71,23 +84,63 @@ public class MaterialService {
 		System.out.println(pattern);
 		return materials;
 	}
+	boolean visited = false;
+	public List<Material> searchMaterial(String pattern,Pageable pageable){
+		
+		Page<Material> page =  materialRepo.findAll(new Specification<Material>() {
+			@Override
+			public Predicate toPredicate(Root<Material> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+				List<Predicate> predicates = new ArrayList<>();
 
-	public ResponseEntity<InputStreamResource> getMaterialPdf(HttpServletResponse response) {
-		response.setContentType("application/octet-stream");
-        
-        String headerKey = "Content-Disposition";
-        String headerValue = "inline; filename=MaterialsReport.pdf";
-        response.setHeader(headerKey, headerValue);
+				if(pattern!=null) {
+					predicates.add(
+							criteriaBuilder.or(
+									criteriaBuilder.like(root.get("materialNumber"), pattern),
+									criteriaBuilder.like(root.get("materialDescription"), pattern),
+									criteriaBuilder.like(root.get("lastPOUnitPrice").as(String.class), pattern),
+									criteriaBuilder.like(root.get("last1stYearIssueQuantity").as(String.class), pattern),
+									criteriaBuilder.like(root.get("last2ndYearIssueQuantity").as(String.class), pattern),
+									criteriaBuilder.like(root.get("last3rdYearIssueQuantity").as(String.class), pattern)
+									));
+				}
+
+				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+			}
+		}, pageable);
+		System.out.println(page.getContent().size() + " "+ visited);
 		
-		MaterialPdfService materialPdfService = new MaterialPdfService();
-		List<Material> materials = this.getMaterials();
-		ByteArrayInputStream bis = materialPdfService.getMaterialPdf(materials);
-		
-		return ResponseEntity
-                .ok()
-                //.headers(headers)
-                .contentType(MediaType.APPLICATION_PDF)
-                .body(new InputStreamResource(bis));
+		if(page.getContent().size() == 0 ) {
+			System.out.println("if is called");
+			Pageable p = PageRequest.of(0, 3);
+			visited = true;
+			searchMaterial(pattern,p);
+		}
+		 
+       
+		return page.getContent();
 	}
+	
+	
+
+	/*
+	 * public ResponseEntity<InputStreamResource> getMaterialPdf(HttpServletResponse
+	 * response) {
+	 * response.setContentType("application/octet-stream");
+	 * 
+	 * String headerKey = "Content-Disposition";
+	 * String headerValue = "inline; filename=MaterialsReport.pdf";
+	 * response.setHeader(headerKey, headerValue);
+	 * 
+	 * MaterialPdfService materialPdfService = new MaterialPdfService();
+	 * List<Material> materials = this.getMaterials();
+	 * ByteArrayInputStream bis = materialPdfService.getMaterialPdf(materials);
+	 * 
+	 * return ResponseEntity
+	 * .ok()
+	 * //.headers(headers)
+	 * .contentType(MediaType.APPLICATION_PDF)
+	 * .body(new InputStreamResource(bis));
+	 * }
+	 */
 	
 }

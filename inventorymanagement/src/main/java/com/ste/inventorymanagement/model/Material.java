@@ -55,6 +55,7 @@ public class Material {
 	private Plant plant;
 
 	@OneToMany(mappedBy = "material")
+	@JsonBackReference
 	private List<Batch> batches;
 	
 	public Long getId() {

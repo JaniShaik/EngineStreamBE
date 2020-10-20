@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,6 +28,7 @@ import com.ste.inventorymanagement.repository.BatchRepository;
 import com.ste.inventorymanagement.repository.MaterialRepository;
 import com.ste.inventorymanagement.services.BatchService;
 import com.ste.inventorymanagement.services.MailService;
+import com.ste.inventorymanagement.services.MaterialOpenPdfService;
 import com.ste.inventorymanagement.services.MaterialService;
 
 //19-oct-2020
@@ -99,17 +101,36 @@ public class MaterialController {
 		return material;
 	}
 	
-	@GetMapping("/searchMaterial/{data}")
-	public List<Material> searchMaterial(@PathVariable String data) {
+	@GetMapping("/searchMaterial/")
+	public List<Material> searchMaterial(@RequestParam("data") String data, @RequestParam("pageSize") int pageSize, @RequestParam("pageIndex") int pageIndex) {
 		System.out.println(data);
+		Pageable pageable = PageRequest.of(pageIndex, pageSize);
 		String pattern = "%"+data+"%";
-		List<Material> materials = materialService.searchMaterial(pattern);
+		List<Material> materials = materialService.searchMaterial(pattern, pageable);
 		return materials;
 	}
 	
-	@GetMapping("/getMaterialPdf")
-	public ResponseEntity<InputStreamResource> getMaterialPdf(HttpServletResponse response) {
-		return materialService.getMaterialPdf(response);
-		
-	}
+	/*
+	 * @GetMapping("/getMaterialPdf")
+	 * public ResponseEntity<InputStreamResource> getMaterialPdf(HttpServletResponse
+	 * response) {
+	 * return materialService.getMaterialPdf(response);
+	 * 
+	 * }
+	 */
+	
+	 @GetMapping("/materials/export/pdf")
+	    public void exportToPDF(HttpServletResponse response) throws Exception {
+	        response.setContentType("application/pdf");
+	         
+	        String headerKey = "Content-Disposition";
+	        String headerValue = "inline; filename=materials" + ".pdf";
+	        response.setHeader(headerKey, headerValue);
+	         
+	        List<Material> materials = materialService.getMaterials();
+	         
+	        MaterialOpenPdfService exporter = new MaterialOpenPdfService(materials);
+	        exporter.export(response);
+	         
+	    }
 }
