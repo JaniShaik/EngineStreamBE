@@ -7,9 +7,11 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -95,13 +97,19 @@ public class MaterialController {
 		Pageable page = PageRequest.of(pageId, materialRepo.PAGE_SIZE);
 		Page<Material> material =  materialRepo.findAll(page);
 		return material;
-		
 	}
 	
 	@GetMapping("/searchMaterial/{data}")
 	public List<Material> searchMaterial(@PathVariable String data) {
+		System.out.println(data);
 		String pattern = "%"+data+"%";
 		List<Material> materials = materialService.searchMaterial(pattern);
 		return materials;
+	}
+	
+	@GetMapping("/getMaterialPdf")
+	public ResponseEntity<InputStreamResource> getMaterialPdf(HttpServletResponse response) {
+		return materialService.getMaterialPdf(response);
+		
 	}
 }
