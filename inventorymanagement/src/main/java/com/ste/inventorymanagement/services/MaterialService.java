@@ -84,7 +84,7 @@ public class MaterialService {
 		System.out.println(pattern);
 		return materials;
 	}
-	//boolean visited = false;
+
 	public List<Material> searchMaterial(String pattern,Pageable pageable,boolean visited){
 
 		Page<Material> page =  materialRepo.findAll(new Specification<Material>() {

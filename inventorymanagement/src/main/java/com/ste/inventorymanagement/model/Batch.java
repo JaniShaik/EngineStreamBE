@@ -85,6 +85,17 @@ public class Batch {
 	
 	@Column(name = "MaterialCharacteristic")
 	private String materialCharacteristic;
+	
+	@Column(name = "SurplusFlag")
+	private boolean surplusFlag;
+
+	public boolean isSurplusFlag() {
+		return surplusFlag;
+	}
+
+	public void setSurplusFlag(boolean surplusFlag) {
+		this.surplusFlag = surplusFlag;
+	}
 
 	@ManyToOne
 	@JsonBackReference

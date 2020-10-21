@@ -24,6 +24,9 @@ public class BatchController {
 
 	@Autowired
 	BatchService batchService;
+	
+	@Autowired
+	BatchRepository batchRepo;
 
 	@GetMapping("/")
 	public List<Batch> getAllBatchDetails() {
