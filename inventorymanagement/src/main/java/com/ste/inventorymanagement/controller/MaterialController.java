@@ -106,7 +106,7 @@ public class MaterialController {
 		System.out.println(data);
 		Pageable pageable = PageRequest.of(pageIndex, pageSize);
 		String pattern = "%"+data+"%";
-		List<Material> materials = materialService.searchMaterial(pattern, pageable);
+		List<Material> materials = materialService.searchMaterial(pattern, pageable,false);
 		return materials;
 	}
 	

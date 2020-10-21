@@ -84,14 +84,13 @@ public class MaterialService {
 		System.out.println(pattern);
 		return materials;
 	}
-	boolean visited = false;
-	public List<Material> searchMaterial(String pattern,Pageable pageable){
-		
+	//boolean visited = false;
+	public List<Material> searchMaterial(String pattern,Pageable pageable,boolean visited){
+
 		Page<Material> page =  materialRepo.findAll(new Specification<Material>() {
 			@Override
 			public Predicate toPredicate(Root<Material> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 				List<Predicate> predicates = new ArrayList<>();
-
 				if(pattern!=null) {
 					predicates.add(
 							criteriaBuilder.or(
@@ -107,19 +106,17 @@ public class MaterialService {
 				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
 			}
 		}, pageable);
-		System.out.println(page.getContent().size() + " "+ visited);
-		
-		if(page.getContent().size() == 0 ) {
+		System.out.println(page.getContent().size() + " "+ visited+ " "+ pageable.getPageSize());
+
+		if(page.getContent().size() == 0 && !visited) {
+			int pageIndex = 0;
 			System.out.println("if is called");
-			Pageable p = PageRequest.of(0, 3);
+			Pageable p = PageRequest.of(pageIndex, pageable.getPageSize());
 			visited = true;
-			searchMaterial(pattern,p);
+			return searchMaterial(pattern,p,visited);
 		}
-		 
-       
 		return page.getContent();
 	}
-	
 	
 
 	/*
