@@ -1,5 +1,6 @@
 package com.ste.inventorymanagement.controller;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ste.inventorymanagement.model.Batch;
 import com.ste.inventorymanagement.repository.BatchRepository;
 import com.ste.inventorymanagement.services.BatchService;
+import org.apache.commons.beanutils.BeanUtils;
 
 import payLoad.BatchPayLoad;
 
@@ -83,7 +85,7 @@ public class BatchController {
 		return mapList;
 	}
 	@GetMapping("/getEnabledSurplusFlagBatchRecordss")
-	public List<BatchPayLoad> getEnabledSurplusFlagBatchRecords(@RequestParam("pageSize") int pageSize, @RequestParam("pageIndex") int pageIndex) {
+	public List<BatchPayLoad> getEnabledSurplusFlagBatchRecords(@RequestParam("pageSize") int pageSize, @RequestParam("pageIndex") int pageIndex) throws Exception {
 		List<Batch> batches = null;
 		List<BatchPayLoad> batchPayloads = new ArrayList<BatchPayLoad>();
 		BatchPayLoad batchPayload;
@@ -91,7 +93,7 @@ public class BatchController {
 		batches = batchService.getEnabledSurplusFlagBatchRecords(pageable,false);
 		for(Batch b : batches) {
 			batchPayload = new BatchPayLoad();
-			batchPayload.setBatch(b);
+			BeanUtils.copyProperties(batchPayload, b);
 			if(b.getMaterial() != null && b.getMaterial().getMaterialDescription() != null)
 				batchPayload.setMaterialDescription((b.getMaterial().getMaterialDescription()));
 			

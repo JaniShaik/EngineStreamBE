@@ -2,15 +2,8 @@ package payLoad;
 
 import com.ste.inventorymanagement.model.Batch;
 
-public class BatchPayLoad {
-	private Batch batch;
+public class BatchPayLoad extends Batch{
 	private String materialDescription;
-	public Batch getBatch() {
-		return batch;
-	}
-	public void setBatch(Batch batch) {
-		this.batch = batch;
-	}
 	public String getMaterialDescription() {
 		return materialDescription;
 	}
