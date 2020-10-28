@@ -74,7 +74,7 @@ public class ReadExcelSheet {
 		
 		//getting name of the sheet i,e CFM56-5B
 		name = sheet.getRow(0).getCell(2).getStringCellValue().split(" ")[0];
-		name = name.split("\r\n")[0];
+		name = name.split("\n")[0];
 		
 		for (int rn=3; rn<=sheet.getLastRowNum(); rn++) {
 			Row row = sheet.getRow(rn);
