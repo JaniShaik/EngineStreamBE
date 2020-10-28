@@ -20,11 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ste.inventorymanagement.model.Batch;
+import com.ste.inventorymanagement.payLoad.BatchPayLoad;
 import com.ste.inventorymanagement.repository.BatchRepository;
 import com.ste.inventorymanagement.services.BatchService;
 import org.apache.commons.beanutils.BeanUtils;
 
-import payLoad.BatchPayLoad;
 
 @RestController
 @ResponseBody

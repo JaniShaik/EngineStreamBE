@@ -32,8 +32,7 @@ public class BatchService {
 	}
 
 	public Material getMaterialByBatchIdUsingQuery(Long batchId) {
-		batchRepo.getMaterialByBatchIdUsingQuery(batchId);
-		return null;
+		return batchRepo.getMaterialByBatchIdUsingQuery(batchId);
 	}
 
 	public List<Batch> getEnabledSurplusFlagBatchRecords(Pageable pageable, boolean visited) {
