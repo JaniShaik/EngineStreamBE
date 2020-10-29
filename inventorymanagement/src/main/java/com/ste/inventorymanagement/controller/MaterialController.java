@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ste.inventorymanagement.model.Batch;
 import com.ste.inventorymanagement.model.Material;
-import com.ste.inventorymanagement.model.SmtpMail;
 import com.ste.inventorymanagement.repository.BatchRepository;
 import com.ste.inventorymanagement.repository.MaterialRepository;
 import com.ste.inventorymanagement.services.BatchService;

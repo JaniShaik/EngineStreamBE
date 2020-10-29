@@ -5,18 +5,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.ste.inventorymanagement.services.ReadExcelSheet;
+import com.ste.inventorymanagement.services.ReadExcelSheetService;
 
 @Controller
 @RequestMapping("/insert")
 public class InsertDataFromExcelToDbController {
 	
 	@Autowired
-	ReadExcelSheet r;
+	ReadExcelSheetService readExcelSheetService;
 	
 	@PostMapping("/insertDataFromExcelToDb")
 	public void insertDataFromExcelToDb() throws Exception {
-		r.ReadExcel();
+		readExcelSheetService.ReadExcel();
 
 	}
 

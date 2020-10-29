@@ -25,7 +25,7 @@ import com.ste.inventorymanagement.repository.DetailsRepo;
 import com.ste.inventorymanagement.repository.ValuesRepo;
 
 @Service
-public class ReadExcelSheet {
+public class ReadExcelSheetService {
 	@Autowired
 	DetailsRepo detailsRepo;
 	@Autowired
@@ -51,7 +51,6 @@ public class ReadExcelSheet {
 
 		//fields of values
 		String componentPartsValue= null;
-		String repairSitesVvalue= null;
 		String ataRepairNumberValue= null;
 		String repairDescription= null;
 		String tatDays= null;
@@ -69,7 +68,6 @@ public class ReadExcelSheet {
 
 		org.apache.poi.ss.usermodel.Sheet sheet = workbook.getSheetAt(0);
 
-		DataFormatter fmt = new DataFormatter();
 		sheet = workbook.getSheetAt(0);
 		
 		//getting name of the sheet i,e CFM56-5B
@@ -190,7 +188,6 @@ public class ReadExcelSheet {
 				valuesRepo.save(catalogueComponentValues);
 
 				componentPartsValue = null;
-				repairSitesVvalue = null;
 				ataRepairNumberValue = null;
 				repairDescription = null;
 				tatDays = null;
