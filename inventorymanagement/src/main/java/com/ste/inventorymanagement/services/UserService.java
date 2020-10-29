@@ -133,6 +133,11 @@ public class UserService {
 		userPayload.setId(user.getId());
 		userPayload.setName(user.getName());
 		userPayload.setEmailAddress(user.getEmailAddress());
+		userPayload.setStatus(user.getStatus());
+		userPayload.setCreatedAt(user.getCreatedAt());
+		userPayload.setCreatedBy(user.getCreatedBy());
+		userPayload.setUpdatedAt(user.getUpdatedAt());
+		userPayload.setUpdatedBy(user.getUpdatedBy());
 		// userPayload.setPassword(user.getPassword());
 		userPayload.setUserid(user.getUserid());
 		if (null != user.getRoleId()) {

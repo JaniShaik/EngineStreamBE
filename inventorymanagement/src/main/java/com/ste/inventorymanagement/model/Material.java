@@ -5,28 +5,18 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 
 @Entity
 @Table(name = "Material")
-public class Material {
+public class Material extends BaseEntity{
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column (nullable = false, name = "Id")
-	private Long id;
+	private static final long serialVersionUID = 1L;
 	
 	@Column(name = "MaterialNumber")
 	private String materialNumber;
@@ -48,24 +38,17 @@ public class Material {
 	
 	@ManyToOne
 	@JoinColumn(name="Engine", referencedColumnName="id")
+	@JsonBackReference
 	private Engine engine;
 	
 	@ManyToOne
 	@JoinColumn(name = "Plant", referencedColumnName="id")
+	@JsonBackReference
 	private Plant plant;
 
 	@OneToMany(mappedBy = "material")
-	@JsonBackReference
-	private List<Batch> batches;
+    private List<Batch> batches;
 	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public String getMaterialNumber() {
 		return materialNumber;
 	}

@@ -9,10 +9,6 @@ import javax.validation.constraints.NotBlank;
 @JsonIgnoreProperties(allowGetters = true)
 public class Login {
 
-	/**
-	 * 
-	 */
-
 	@Id
 	private Long Id;
 	

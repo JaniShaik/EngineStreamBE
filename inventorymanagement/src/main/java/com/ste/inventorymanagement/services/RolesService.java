@@ -50,7 +50,11 @@ public class RolesService {
 	private RolePayload mapRoleToRolePayload(RolePayload rolePayload, Roles role) {
 		rolePayload.setId(role.getId());
 		rolePayload.setRoleName(role.getName());
-		
+		rolePayload.setStatus(role.getStatus());
+		rolePayload.setCreatedAt(role.getCreatedAt());
+		rolePayload.setCreatedBy(role.getCreatedBy());
+		rolePayload.setUpdatedAt(role.getUpdatedAt());
+		rolePayload.setUpdatedBy(role.getUpdatedBy());
 		return rolePayload;
 	}
 }

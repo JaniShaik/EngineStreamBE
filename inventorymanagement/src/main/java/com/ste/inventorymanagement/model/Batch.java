@@ -2,27 +2,23 @@ package com.ste.inventorymanagement.model;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "Batch")
-public class Batch {
+public class Batch extends BaseEntity{
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column (nullable = false, name = "Id")
-	private Long id;
-	
+	private static final long serialVersionUID = 1L;
+
 	@Column(name = "BIZUnit")
 	private String bizUnit;
 
@@ -85,31 +81,18 @@ public class Batch {
 	
 	@Column(name = "MaterialCharacteristic")
 	private String materialCharacteristic;
-	
-	@Column(name = "SurplusFlag")
-	private boolean surplusFlag;
-
-	public boolean isSurplusFlag() {
-		return surplusFlag;
-	}
-
-	public void setSurplusFlag(boolean surplusFlag) {
-		this.surplusFlag = surplusFlag;
-	}
 
 	@ManyToOne
-	@JsonBackReference
 	@JoinColumn(name = "Material", referencedColumnName = "id")
+	@JsonBackReference
 	private Material material;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
+	@Column(name = "SurplusFlag")
+	private boolean surplusFlag;
+	
+	@OneToMany(mappedBy = "batch")
+	private List<SurplusFlagHistory> surplusFlagHistoryList;
+	
 	public String getBizUnit() {
 		return bizUnit;
 	}
@@ -285,6 +268,20 @@ public class Batch {
 	public void setMaterialCharacteristic(String materialCharacteristic) {
 		this.materialCharacteristic = materialCharacteristic;
 	}
-	
-	
+
+	public boolean isSurplusFlag() {
+		return surplusFlag;
+	}
+
+	public void setSurplusFlag(boolean surplusFlag) {
+		this.surplusFlag = surplusFlag;
+	}
+
+	public List<SurplusFlagHistory> getSurplusFlagHistoryList() {
+		return surplusFlagHistoryList;
+	}
+
+	public void setSurplusFlagHistoryList(List<SurplusFlagHistory> surplusFlagHistoryList) {
+		this.surplusFlagHistoryList = surplusFlagHistoryList;
+	}
 }

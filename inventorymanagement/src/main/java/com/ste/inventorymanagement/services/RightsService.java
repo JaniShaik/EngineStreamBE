@@ -69,7 +69,11 @@ public class RightsService {
 		rightsPayload.setParent(rights.getParent());
 		rightsPayload.setType(rights.getType());
 		rightsPayload.setPosition(rights.getPosition());
-		
+		rightsPayload.setStatus(rights.getStatus());
+		rightsPayload.setCreatedAt(rights.getCreatedAt());
+		rightsPayload.setCreatedBy(rights.getCreatedBy());
+		rightsPayload.setUpdatedAt(rights.getUpdatedAt());
+		rightsPayload.setUpdatedBy(rights.getUpdatedBy());
 
 		return rightsPayload;
 	}

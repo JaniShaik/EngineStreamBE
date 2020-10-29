@@ -1,3 +1,4 @@
+  
 package com.ste.inventorymanagement.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;

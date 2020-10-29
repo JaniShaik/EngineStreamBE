@@ -3,7 +3,6 @@ package com.ste.inventorymanagement.model;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -17,11 +16,11 @@ public class RolesRights extends BaseEntity{
 
 	@ManyToOne
 	@JoinColumn(name = "Role", referencedColumnName="id")
-	private Roles role;
+    private Roles role;
 	
 	@ManyToOne
 	@JoinColumn(name = "Rights", referencedColumnName="id")
-	private Rights right;
+    private Rights right;
 
 	public Roles getRole() {
 		return role;

@@ -2,11 +2,11 @@ package com.ste.inventorymanagement.model;
 import java.io.Serializable;
 import java.sql.Date;
 
-import javax.persistence.Basic;  
-import javax.persistence.Column;  
-import javax.persistence.GeneratedValue;  
-import javax.persistence.GenerationType;  
-import javax.persistence.Id;  
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -137,5 +137,10 @@ public abstract class BaseEntity implements Serializable {
     @Override  
     public String toString() {  
         return this.getClass().getName() + " [ID=" + id + "]";  
-    }  
+    }
+
+	public void setId(Long id) {
+		this.id = id;
+	}  
+    
 }  

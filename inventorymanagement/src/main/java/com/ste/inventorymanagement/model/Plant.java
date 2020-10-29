@@ -1,20 +1,17 @@
 package com.ste.inventorymanagement.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Plant")
-public class Plant {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(nullable = false, name = "Id")
-	private Long id;
+public class Plant extends BaseEntity{
+
+	private static final long serialVersionUID = 1L;
 	
 	@Column(name = "PlantName")
 	private String plantName;
@@ -22,13 +19,8 @@ public class Plant {
 	@Column(name = "PlantCode")
 	private String plantCode;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+	@OneToMany(mappedBy = "plant")
+	private List<Material> materials;
 
 	public String getPlantName() {
 		return plantName;
@@ -44,5 +36,13 @@ public class Plant {
 
 	public void setPlantCode(String plantCode) {
 		this.plantCode = plantCode;
+	}
+
+	public List<Material> getMaterials() {
+		return materials;
+	}
+
+	public void setMaterials(List<Material> materials) {
+		this.materials = materials;
 	}
 }

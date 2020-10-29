@@ -1,7 +1,10 @@
 package com.ste.inventorymanagement.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -33,7 +36,7 @@ public class Rights extends BaseEntity{
 	
 	@Column(name = "Position")
 	private Long position;
-
+	
 	public String getName() {
 		return name;
 	}
@@ -88,5 +91,5 @@ public class Rights extends BaseEntity{
 
 	public void setPosition(Long position) {
 		this.position = position;
-	}	
+	}
 }

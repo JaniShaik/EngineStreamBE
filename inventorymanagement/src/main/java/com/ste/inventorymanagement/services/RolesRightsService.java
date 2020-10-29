@@ -78,7 +78,11 @@ private Logger logger = LogManager.getLogger(RolesService.class);
 		rolesRightsPayload.setId(rolesRights.getId());
 		rolesRightsPayload.setRoleId(rolesRights.getRole().getId());
 		rolesRightsPayload.setRightId(rolesRights.getRight().getId());
-		
+		rolesRightsPayload.setStatus(rolesRights.getStatus());
+		rolesRightsPayload.setCreatedAt(rolesRights.getCreatedAt());
+		rolesRightsPayload.setCreatedBy(rolesRights.getCreatedBy());
+		rolesRightsPayload.setUpdatedAt(rolesRights.getUpdatedAt());
+		rolesRightsPayload.setUpdatedBy(rolesRights.getUpdatedBy());
 		return rolesRightsPayload;
 	}
 }
