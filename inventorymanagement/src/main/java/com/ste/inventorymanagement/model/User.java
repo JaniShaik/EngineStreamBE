@@ -6,11 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "STEUser")
+@Table(name = "STEUser",uniqueConstraints={@UniqueConstraint(columnNames={"EmailAddress"}),@UniqueConstraint(columnNames={"UserId"})})
 @JsonIgnoreProperties(allowGetters = true)
 public class User extends BaseEntity{
 	

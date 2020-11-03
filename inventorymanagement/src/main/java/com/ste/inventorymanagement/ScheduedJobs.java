@@ -31,7 +31,7 @@ public class ScheduedJobs {
 	      batchRepo.updateBatchSurplusFlagJob();
 	   }
 	
-	@Scheduled(cron = "0 35 19 * * ?")
+	//@Scheduled(cron = "0 35 19 * * ?")
 	   public void cronJobInsertDataFromExcelToDbDetailsAndValues() throws Exception {
 	      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 	      Date now = new Date();

@@ -81,18 +81,4 @@ public class AuthController {
 
 	}
 
-	/************************************************************
-	 * CREATE Login
-	 ************************************************************/
-
-	// Create a new user in master table
-	/**
-	 * @param user
-	 * @return
-	 */
-	@PostMapping("/newuser")
-	public User createUser(@Valid @RequestBody User user) {
-		return userRepository.save(user);
-	}
-
 }

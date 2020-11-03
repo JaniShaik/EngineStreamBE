@@ -35,7 +35,7 @@ public class ReadExcelSheetService {
 	 * public static void main(String[] args) throws Exception {
 	 * //SpringApplication.run(ReadExcelSheet.class, args);
 	 * ReadExcelSheet r = new ReadExcelSheet();
-	 * r.ReadExcel();
+	 * r.ReadExcel(); 
 	 * }
 	 */
 	public  void ReadExcel() throws Exception {
@@ -61,6 +61,11 @@ public class ReadExcelSheetService {
 
 		CatalogueComponentDetails catalogueComponentDetails= null;
 		CatalogueComponentValues catalogueComponentValues = null;
+		
+		/*
+		 * valuesRepo.deleteAll();
+		 * detailsRepo.deleteAll();
+		 */
 
 		File myFile = new File(fileLocation);
 		FileInputStream fis = new FileInputStream(myFile);
